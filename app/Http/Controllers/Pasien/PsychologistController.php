@@ -35,6 +35,7 @@ class PsychologistController extends Controller
             })
             ->with(['psychologistProfile', 'jadwals' => function ($query) {
                 $query->where('is_available', true)
+                    ->orderByRaw("FIELD(day_of_week, 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday')")
                     ->orderBy('start_time');
             }])
             ->findOrFail($id);

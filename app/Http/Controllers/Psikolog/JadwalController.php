@@ -16,6 +16,7 @@ class JadwalController extends Controller
     public function index()
     {
         $jadwals = Jadwal::where('user_id', Auth::id())
+            ->orderByRaw("FIELD(day_of_week, 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday')")
             ->orderBy('start_time')
             ->get();
 
