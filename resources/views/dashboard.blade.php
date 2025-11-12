@@ -5,15 +5,15 @@
         </h2>
     </x-slot>
 
-    <main class="py-10">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="mb-8">
-                <h2 class="text-xl font-semibold text-gray-800 mb-2">Selamat Datang Kembali!</h2>
-                <p class="text-gray-600">Siap untuk mengambil langkah selanjutnya menuju kesehatan mental Anda?
+    <main class="py-6 sm:py-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-6 sm:mb-8">
+                <h2 class="text-lg sm:text-xl font-semibold text-gray-800 mb-2">Selamat Datang Kembali!</h2>
+                <p class="text-sm sm:text-base text-gray-600">Siap untuk mengambil langkah selanjutnya menuju kesehatan mental Anda?
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
                 <!-- Card 1: Cari Psikolog -->
                 <a href="{{ route('pasien.psychologists.index') }}"
                     class="flex flex-col justify-between transform hover:scale-105 transition-transform duration-300 ease-in-out bg-white rounded-2xl shadow-lg overflow-hidden group">

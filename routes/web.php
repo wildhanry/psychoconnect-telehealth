@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Auth\PsychologistRegisterController;
 use App\Http\Controllers\Psikolog\PsikologDashboardController;
 use App\Http\Controllers\Psikolog\ProfileController as PsikologProfileController;
 use App\Http\Controllers\Psikolog\JadwalController;
@@ -13,6 +14,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+// Psychologist Registration (Public)
+Route::get('/register/psychologist', [PsychologistRegisterController::class, 'create'])->name('register.psychologist');
+Route::post('/register/psychologist', [PsychologistRegisterController::class, 'store'])->name('register.psychologist.store');
 
 // Patient Dashboard (default)
 Route::get('/dashboard', function () {
@@ -31,8 +36,21 @@ Route::middleware('auth')->group(function () {
 // ============================================
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
-    Route::post('/psychologists/{id}/verify', [AdminController::class, 'verifyPsychologist'])->name('psychologists.verify');
-    Route::post('/psychologists/{id}/unverify', [AdminController::class, 'unverifyPsychologist'])->name('psychologists.unverify');
+    
+    // User Management
+    Route::get('/users', [AdminController::class, 'users'])->name('users');
+    Route::delete('/users/{id}', [AdminController::class, 'deleteUser'])->name('users.delete');
+    
+    // Psychologist Management
+    Route::get('/psychologists', [AdminController::class, 'psychologists'])->name('psychologists');
+    Route::post('/psychologists/{id}/verify', [AdminController::class, 'verifyPsychologist'])->name('verify-psychologist');
+    Route::post('/psychologists/{id}/unverify', [AdminController::class, 'unverifyPsychologist'])->name('unverify-psychologist');
+    
+    // Patient Management
+    Route::get('/patients', [AdminController::class, 'patients'])->name('patients');
+    
+    // Appointment Management
+    Route::get('/appointments', [AdminController::class, 'appointments'])->name('appointments');
 });
 
 // ============================================
@@ -74,4 +92,3 @@ Route::middleware(['auth', 'role:pasien'])->prefix('pasien')->name('pasien.')->g
 });
 
 require __DIR__.'/auth.php';
-

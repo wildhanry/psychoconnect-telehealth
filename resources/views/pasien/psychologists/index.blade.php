@@ -5,28 +5,28 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+    <div class="py-6 sm:py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    <h3 class="text-lg font-semibold mb-4">Psikolog Tersedia</h3>
+                <div class="p-4 sm:p-6 text-gray-900">
+                    <h3 class="text-base sm:text-lg font-semibold mb-4">Psikolog Tersedia</h3>
 
                     @if ($psychologists->count() > 0)
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
                             @foreach ($psychologists as $psychologist)
                                 <div
-                                    class="bg-white border border-gray-200 rounded-2xl transform shadow-lg hover:scale-105 transition-all duration-300 ease-in-out flex flex-col">
-                                    <div class="p-6 flex-grow">
-                                        <div class="flex items-center mb-4">
-                                            <img class="h-16 w-16 rounded-full object-cover mr-4"
+                                    class="bg-white border border-gray-200 rounded-xl sm:rounded-2xl transform shadow-lg hover:scale-105 transition-all duration-300 ease-in-out flex flex-col">
+                                    <div class="p-4 sm:p-6 flex-grow">
+                                        <div class="flex items-start sm:items-center mb-4 gap-3">
+                                            <img class="h-12 w-12 sm:h-16 sm:w-16 rounded-full object-cover flex-shrink-0"
                                                 src="{{ $psychologist->psychologistProfile && $psychologist->psychologistProfile->photo ? asset('storage/' . $psychologist->psychologistProfile->photo) : 'https://ui-avatars.com/api/?name=' . urlencode($psychologist->name) . '&background=EBF4FF&color=0284C7' }}"
                                                 alt="Foto {{ $psychologist->name }}">
-                                            <div class="flex-1">
-                                                <h4 class="font-bold text-lg text-gray-800">{{ $psychologist->name }}
+                                            <div class="flex-1 min-w-0">
+                                                <h4 class="font-bold text-base sm:text-lg text-gray-800 truncate">{{ $psychologist->name }}
                                                 </h4>
                                                 @if ($psychologist->psychologistProfile->specialization)
                                                     <span
-                                                        class="inline-block bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">
+                                                        class="inline-block bg-blue-100 text-blue-800 text-xs font-semibold mt-1 px-2 py-0.5 rounded-full">
                                                         {{ $psychologist->psychologistProfile->specialization }}
                                                     </span>
                                                 @endif
@@ -34,20 +34,20 @@
                                         </div>
 
                                         @if ($psychologist->psychologistProfile->bio)
-                                            <p class="text-sm text-gray-600 mb-4 line-clamp-3">
+                                            <p class="text-xs sm:text-sm text-gray-600 mb-4 line-clamp-3">
                                                 {{ $psychologist->psychologistProfile->bio }}
                                             </p>
                                         @endif
                                     </div>
 
-                                    <div class="bg-gray-50 p-4 rounded-b-2xl mt-auto">
-                                        <div class="flex gap-3">
+                                    <div class="bg-gray-50 p-3 sm:p-4 rounded-b-xl sm:rounded-b-2xl mt-auto">
+                                        <div class="flex flex-col sm:flex-row gap-2 sm:gap-3">
                                             <a href="{{ route('pasien.psychologists.show', $psychologist->id) }}"
-                                                class="flex-1 text-center bg-white hover:bg-gray-100 text-gray-800 font-bold py-2 px-4 rounded-lg border border-gray-300 transition-colors duration-300 text-sm">
+                                                class="flex-1 text-center bg-white hover:bg-gray-100 text-gray-800 font-bold py-2 px-3 sm:px-4 rounded-lg border border-gray-300 transition-colors duration-300 text-xs sm:text-sm">
                                                 Lihat Detail
                                             </a>
                                             <a href="{{ route('pasien.booking.create', $psychologist->id) }}"
-                                                class="flex-1 text-center bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300 text-sm">
+                                                class="flex-1 text-center bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-3 sm:px-4 rounded-lg transition-colors duration-300 text-xs sm:text-sm">
                                                 Buat Janji
                                             </a>
                                         </div>
