@@ -5,61 +5,68 @@ Platform TeleHealth yang menghubungkan Pasien dengan Psikolog untuk konsultasi o
 ## 🚀 Fitur Utama
 
 ### Admin
-- ✅ Dashboard dengan statistik
-- ✅ Verifikasi psikolog (approve/reject)
-- ✅ Manajemen user
+
+-   ✅ Dashboard dengan statistik
+-   ✅ Verifikasi psikolog (approve/reject)
+-   ✅ Manajemen user
 
 ### Psikolog
-- ✅ Dashboard dengan daftar janji temu
-- ✅ Setup profil (spesialisasi, bio, nomor STR)
-- ✅ Kelola jadwal praktik (CRUD)
-- ✅ Approve/Reject janji temu
-- ✅ Update link meeting (Google Meet, Zoom, dll)
-- ✅ Tandai janji temu sebagai selesai
+
+-   ✅ Dashboard dengan daftar janji temu
+-   ✅ Setup profil (spesialisasi, bio, nomor STR)
+-   ✅ Kelola jadwal praktik (CRUD)
+-   ✅ Approve/Reject janji temu
+-   ✅ Update link meeting (Google Meet, Zoom, dll)
+-   ✅ Tandai janji temu sebagai selesai
 
 ### Pasien
-- ✅ Browse psikolog terverifikasi
-- ✅ Lihat detail psikolog dan jadwal
-- ✅ Buat janji temu
-- ✅ Lihat status janji temu
-- ✅ Batalkan janji temu
-- ✅ Join meeting via link
+
+-   ✅ Browse psikolog terverifikasi
+-   ✅ Lihat detail psikolog dan jadwal
+-   ✅ Buat janji temu
+-   ✅ Lihat status janji temu
+-   ✅ Batalkan janji temu
+-   ✅ Join meeting via link
 
 ## 🛠️ Tech Stack
 
-- **Framework:** Laravel 11
-- **Database:** MySQL/SQLite
-- **Auth:** Laravel Breeze (Blade & Tailwind)
-- **Frontend:** Blade Templates + Tailwind CSS
+-   **Framework:** Laravel 11
+-   **Database:** MySQL/SQLite
+-   **Auth:** Laravel Breeze (Blade & Tailwind)
+-   **Frontend:** Blade Templates + Tailwind CSS
 
 ## 📋 Prerequisites
 
-- PHP >= 8.2
-- Composer
-- Node.js & NPM
-- MySQL/SQLite
+-   PHP >= 8.2
+-   Composer
+-   Node.js & NPM
+-   MySQL/SQLite
 
 ## ⚙️ Instalasi
 
 1. **Clone repository**
+
 ```bash
 git clone <repository-url>
 cd telehealth-psikolog
 ```
 
 2. **Install dependencies**
+
 ```bash
 composer install
 npm install
 ```
 
 3. **Setup environment**
+
 ```bash
 cp .env.example .env
 php artisan key:generate
 ```
 
 4. **Konfigurasi database di `.env`**
+
 ```env
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
@@ -70,16 +77,19 @@ DB_PASSWORD=
 ```
 
 5. **Jalankan migrations**
+
 ```bash
 php artisan migrate
 ```
 
 6. **Seed sample data (opsional)**
+
 ```bash
 php artisan db:seed
 ```
 
 7. **Build assets**
+
 ```bash
 npm run build
 # atau untuk development:
@@ -87,6 +97,7 @@ npm run dev
 ```
 
 8. **Jalankan server**
+
 ```bash
 php artisan serve
 ```
@@ -98,76 +109,88 @@ Aplikasi akan berjalan di: `http://127.0.0.1:8000`
 Setelah menjalankan `php artisan db:seed`, gunakan kredensial berikut untuk login:
 
 ### Admin
-- Email: `admin@psychoconnect.com`
-- Password: `password`
+
+-   Email: `admin@psychoconnect.com`
+-   Password: `password`
 
 ### Psikolog (Terverifikasi)
-- Email: `sarah@psychoconnect.com` - Dr. Sarah Williams (Psikologi Klinis)
-- Email: `michael@psychoconnect.com` - Dr. Michael Chen (Psikologi Anak & Remaja)
-- Password: `password`
+
+-   Email: `sarah@psychoconnect.com` - Dr. Sarah Williams (Psikologi Klinis)
+-   Email: `michael@psychoconnect.com` - Dr. Michael Chen (Psikologi Anak & Remaja)
+-   Password: `password`
 
 ### Psikolog (Belum Terverifikasi)
-- Email: `amanda@psychoconnect.com` - Dr. Amanda Brown
-- Password: `password`
+
+-   Email: `amanda@psychoconnect.com` - Dr. Amanda Brown
+-   Password: `password`
 
 ### Pasien
-- Email: `john@example.com` - John Doe
-- Email: `jane@example.com` - Jane Smith
-- Password: `password`
+
+-   Email: `john@example.com` - John Doe
+-   Email: `jane@example.com` - Jane Smith
+-   Password: `password`
 
 ## 🗄️ Database Structure
 
 ### Tables
 
 1. **users**
-   - Kolom utama: id, name, email, password, role (enum: admin, psikolog, pasien)
+
+    - Kolom utama: id, name, email, password, role (enum: admin, psikolog, pasien)
 
 2. **psychologist_profiles**
-   - Kolom utama: user_id, specialization, bio, str_number, is_verified
+
+    - Kolom utama: user_id, specialization, bio, str_number, is_verified
 
 3. **jadwals (schedules)**
-   - Kolom utama: user_id, day_of_week, start_time, end_time, is_available
+
+    - Kolom utama: user_id, day_of_week, start_time, end_time, is_available
 
 4. **janji_temus (appointments)**
-   - Kolom utama: pasien_id, psikolog_id, schedule_date, schedule_time, status, meeting_link, notes
+    - Kolom utama: pasien_id, psikolog_id, schedule_date, schedule_time, status, meeting_link, notes
 
 ## 🔐 Role-Based Access Control
 
 Sistem menggunakan middleware `CheckRole` untuk mengatur akses:
 
-- **Admin routes:** `/admin/*` - Hanya admin
-- **Psikolog routes:** `/psikolog/*` - Hanya psikolog
-- **Pasien routes:** `/pasien/*` - Hanya pasien
+-   **Admin routes:** `/admin/*` - Hanya admin
+-   **Psikolog routes:** `/psikolog/*` - Hanya psikolog
+-   **Pasien routes:** `/pasien/*` - Hanya pasien
 
 Redirect otomatis setelah login:
-- Admin → `/admin/dashboard`
-- Psikolog → `/psikolog/dashboard`
-- Pasien → `/dashboard`
+
+-   Admin → `/admin/dashboard`
+-   Psikolog → `/psikolog/dashboard`
+-   Pasien → `/dashboard`
 
 ## 📝 Validation Rules
 
 ### Booking Appointment
-- ✅ Pasien tidak bisa booking diri sendiri
-- ✅ Tanggal harus di masa depan
-- ✅ Waktu harus sesuai dengan jadwal psikolog
-- ✅ Validasi hari dan jam tersedia
+
+-   ✅ Pasien tidak bisa booking diri sendiri
+-   ✅ Tanggal harus di masa depan
+-   ✅ Waktu harus sesuai dengan jadwal psikolog
+-   ✅ Validasi hari dan jam tersedia
 
 ### Schedule Management
-- ✅ Jam selesai harus lebih besar dari jam mulai
-- ✅ Format waktu HH:MM
+
+-   ✅ Jam selesai harus lebih besar dari jam mulai
+-   ✅ Format waktu HH:MM
 
 ### Psychologist Profile
-- ✅ Nomor STR harus unique
-- ✅ Spesialisasi wajib diisi
+
+-   ✅ Nomor STR harus unique
+-   ✅ Spesialisasi wajib diisi
 
 ## 🎨 UI Components
 
 Menggunakan Tailwind CSS dengan komponen dari Laravel Breeze:
-- Forms dengan validation feedback
-- Tables responsif
-- Cards untuk list items
-- Status badges dengan warna
-- Alert messages (success, error)
+
+-   Forms dengan validation feedback
+-   Tables responsif
+-   Cards untuk list items
+-   Status badges dengan warna
+-   Alert messages (success, error)
 
 ## 🔄 Workflow
 
@@ -224,14 +247,14 @@ app/
 
 ## 🚧 Future Enhancements
 
-- [ ] Payment integration
-- [ ] Rating & review system
-- [ ] Chat/messaging feature
-- [ ] Video call integration
-- [ ] Email notifications
-- [ ] SMS reminders
-- [ ] Export reports
-- [ ] Multi-language support
+-   [ ] Payment integration
+-   [ ] Rating & review system
+-   [ ] Chat/messaging feature
+-   [ ] Video call integration
+-   [ ] Email notifications
+-   [ ] SMS reminders
+-   [ ] Export reports
+-   [ ] Multi-language support
 
 ## 📄 License
 
@@ -244,9 +267,10 @@ Built with ❤️ using Laravel 11 & Tailwind CSS
 ---
 
 **Note:** Ini adalah project educational/demo. Untuk production, tambahkan:
-- Email verification
-- Two-factor authentication
-- Rate limiting
-- Comprehensive testing
-- Error logging & monitoring
-- Backup strategy
+
+-   Email verification
+-   Two-factor authentication
+-   Rate limiting
+-   Comprehensive testing
+-   Error logging & monitoring
+-   Backup strategy
