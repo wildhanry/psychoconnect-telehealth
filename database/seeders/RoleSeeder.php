@@ -25,7 +25,7 @@ class RoleSeeder extends Seeder
 
         // Create Psychologist 1
         $psikolog1 = User::create([
-            'name' => 'Dr. Sarah Williams',
+            'name' => 'dr. Sarah Williams',
             'email' => 'sarah@psychoconnect.com',
             'password' => Hash::make('password'),
             'role' => 'psikolog',
@@ -58,7 +58,7 @@ class RoleSeeder extends Seeder
 
         // Create Psychologist 2
         $psikolog2 = User::create([
-            'name' => 'Dr. Michael Chen',
+            'name' => 'dr. Michael Chen',
             'email' => 'michael@psychoconnect.com',
             'password' => Hash::make('password'),
             'role' => 'psikolog',
@@ -90,7 +90,7 @@ class RoleSeeder extends Seeder
 
         // Create Psychologist 3 (Unverified)
         $psikolog3 = User::create([
-            'name' => 'Dr. Amanda Brown',
+            'name' => 'dr. Amanda Brown',
             'email' => 'amanda@psychoconnect.com',
             'password' => Hash::make('password'),
             'role' => 'psikolog',

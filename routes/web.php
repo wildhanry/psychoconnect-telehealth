@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Auth\PsychologistRegisterController;
 use App\Http\Controllers\Psikolog\PsikologDashboardController;
 use App\Http\Controllers\Psikolog\ProfileController as PsikologProfileController;
 use App\Http\Controllers\Psikolog\JadwalController;
@@ -14,10 +13,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
-// Psychologist Registration (Public)
-Route::get('/register/psychologist', [PsychologistRegisterController::class, 'create'])->name('register.psychologist');
-Route::post('/register/psychologist', [PsychologistRegisterController::class, 'store'])->name('register.psychologist.store');
 
 // Patient Dashboard (default)
 Route::get('/dashboard', function () {

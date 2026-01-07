@@ -115,13 +115,13 @@ Setelah menjalankan `php artisan db:seed`, gunakan kredensial berikut untuk logi
 
 ### Psikolog (Terverifikasi)
 
--   Email: `sarah@psychoconnect.com` - Dr. Sarah Williams (Psikologi Klinis)
--   Email: `michael@psychoconnect.com` - Dr. Michael Chen (Psikologi Anak & Remaja)
+-   Email: `sarah@psychoconnect.com` - dr. Sarah Williams (Psikologi Klinis)
+-   Email: `michael@psychoconnect.com` - dr. Michael Chen (Psikologi Anak & Remaja)
 -   Password: `password`
 
 ### Psikolog (Belum Terverifikasi)
 
--   Email: `amanda@psychoconnect.com` - Dr. Amanda Brown
+-   Email: `amanda@psychoconnect.com` - dr. Amanda Brown
 -   Password: `password`
 
 ### Pasien

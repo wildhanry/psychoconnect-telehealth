@@ -74,13 +74,6 @@
                             Lihat Cara Kerja
                         </a>
                     </div>
-                    <div class="mt-6 sm:mt-8">
-                        <p class="text-xs sm:text-sm text-gray-600 mb-2">Anda seorang psikolog?</p>
-                        <a href="{{ route('register.psychologist') }}"
-                            class="inline-block text-indigo-600 hover:text-indigo-700 font-semibold underline text-xs sm:text-sm">
-                            Daftar Sebagai Psikolog →
-                        </a>
-                    </div>
                 </div>
             </section>
 
@@ -192,7 +185,7 @@
                         <div class="bg-white p-6 sm:p-8 rounded-lg shadow-md sm:col-span-2 lg:col-span-1">
                             <p class="text-sm sm:text-base text-gray-600 italic mb-4">"Sebagai seorang psikolog, platform ini memudahkan saya
                                 menjangkau lebih banyak klien tanpa terikat lokasi. Sistemnya profesional."</p>
-                            <div class="font-semibold text-gray-900 text-sm sm:text-base">- Dr. Amanda, M.Psi.</div>
+                            <div class="font-semibold text-gray-900 text-sm sm:text-base">- dr. Amanda, M.Psi.</div>
                             <div class="text-xs sm:text-sm text-gray-500">Psikolog Mitra</div>
                         </div>
                     </div>

@@ -92,7 +92,7 @@ Password: password
 ### Skenario 1: Pasien Booking Psikolog
 
 1. Login sebagai **Pasien (john@example.com)**
-2. Browse psikolog → Pilih "Dr. Sarah Williams"
+2. Browse psikolog → Pilih "dr. Sarah Williams"
 3. Buat janji: Pilih Monday, jam 10:00, tambah catatan
 4. Logout
 
@@ -111,13 +111,13 @@ Password: password
 
 1. Login sebagai **Admin**
 2. Lihat "Psikolog Menunggu Verifikasi"
-3. Ada: Dr. Amanda Brown (belum terverifikasi)
+3. Ada: dr. Amanda Brown (belum terverifikasi)
 4. Klik "Verifikasi"
 5. Logout
 
 6. Login sebagai **Pasien**
 7. Browse psikolog
-8. Sekarang bisa lihat Dr. Amanda Brown dalam list
+8. Sekarang bisa lihat dr. Amanda Brown dalam list
 
 ### Skenario 3: Psikolog Kelola Jadwal
 
