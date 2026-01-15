@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <form method="POST" action="{{ route('register.psychologist.store') }}">
+    <form method="POST" action="{{ route('psychologist.store') }}">
         @csrf
 
         <div class="mb-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">

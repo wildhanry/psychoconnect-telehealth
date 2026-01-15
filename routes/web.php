@@ -93,7 +93,8 @@ Route::middleware(['auth', 'role:pasien'])->prefix('pasien')->name('pasien.')->g
 Route::middleware('guest')->group(function () {
     Route::get('/psychologist/register', [PsychologistRegisterController::class, 'create'])
         ->name('psychologist.register');
-    Route::post('/psychologist/register', [PsychologistRegisterController::class, 'store']);
+    Route::post('/psychologist/register', [PsychologistRegisterController::class, 'store'])
+        ->name('psychologist.store');
 });
 
 require __DIR__.'/auth.php';
