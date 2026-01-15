@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Auth\PsychologistRegisterController;
 use App\Http\Controllers\Psikolog\PsikologDashboardController;
 use App\Http\Controllers\Psikolog\ProfileController as PsikologProfileController;
 use App\Http\Controllers\Psikolog\JadwalController;
@@ -84,6 +85,15 @@ Route::middleware(['auth', 'role:pasien'])->prefix('pasien')->name('pasien.')->g
     // My Appointments
     Route::get('/appointments', [BookingController::class, 'myAppointments'])->name('appointments.index');
     Route::post('/appointments/{id}/cancel', [BookingController::class, 'cancel'])->name('appointments.cancel');
+});
+
+// ============================================
+// PSYCHOLOGIST REGISTRATION ROUTES
+// ============================================
+Route::middleware('guest')->group(function () {
+    Route::get('/psychologist/register', [PsychologistRegisterController::class, 'create'])
+        ->name('psychologist.register');
+    Route::post('/psychologist/register', [PsychologistRegisterController::class, 'store']);
 });
 
 require __DIR__.'/auth.php';
