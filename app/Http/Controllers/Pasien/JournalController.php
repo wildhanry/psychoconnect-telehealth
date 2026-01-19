@@ -41,7 +41,13 @@ class JournalController extends Controller
 
         try {
             // Call the external Python AI Service
-            $aiServiceUrl = env('AI_SERVICE_URL', 'https://wildhanry.pythonanywhere.com') . '/predict';
+            $aiServiceUrl = env('AI_SERVICE_URL');
+            
+            if (!$aiServiceUrl) {
+                throw new \Exception('AI_SERVICE_URL not configured in .env file');
+            }
+            
+            $aiServiceUrl .= '/predict';
             
             $response = Http::timeout(10)->post($aiServiceUrl, [
                 'text' => $request->content,
@@ -145,7 +151,13 @@ class JournalController extends Controller
             ->firstOrFail();
 
         try {
-            $aiServiceUrl = env('AI_SERVICE_URL', 'https://wildhanry.pythonanywhere.com') . '/predict';
+            $aiServiceUrl = env('AI_SERVICE_URL');
+            
+            if (!$aiServiceUrl) {
+                throw new \Exception('AI_SERVICE_URL not configured in .env file');
+            }
+            
+            $aiServiceUrl .= '/predict';
             
             $response = Http::timeout(10)->post($aiServiceUrl, [
                 'text' => $journal->content,

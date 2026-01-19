@@ -137,12 +137,18 @@ PsychoConnect implements a three-tier role-based access control system with dist
 ### AI Integration
 
 **Mood Analysis Service**
-- Endpoint: `https://wildhanry.pythonanywhere.com/predict`
+- Endpoint: Configure via `AI_SERVICE_URL` in `.env` file
 - Method: POST with JSON payload
 - Input: `{"text": "journal_content"}`
-- Output: `{"prediction_label": "...", "prediction_score": 0/1, "confidence": "75.5%"}`
+- Output: `{"prediction_label": "...", "prediction_score": 0/1/2, "confidence": "75.5%"}`
 - Timeout: 10 seconds
 - Fallback: "Pending Analysis" on API failure
+
+**Configuration:**
+```bash
+# .env
+AI_SERVICE_URL=https://your-ai-service.com
+```
 
 ## UI/UX Standards
 

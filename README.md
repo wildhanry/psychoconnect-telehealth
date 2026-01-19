@@ -130,10 +130,16 @@ After seeding, use these credentials for testing:
 ## API Integration
 
 The system integrates with a Python Flask API for AI-powered mood analysis:
-- Endpoint: `https://wildhanry.pythonanywhere.com/predict`
+- Endpoint: Configure via `AI_SERVICE_URL` environment variable
 - Method: POST
 - Input: Journal content text
 - Output: Mood label, score, and confidence percentage
+
+**Setup:**
+```bash
+# Add to .env file
+AI_SERVICE_URL=https://your-ai-service.com
+```
 
 ## License
 
