@@ -68,6 +68,21 @@
                 <div class="bg-white p-6 rounded-lg shadow-sm">
                     <div class="flex items-center justify-between">
                         <div>
+                            <p class="text-sm text-gray-600">Mood Netral</p>
+                            <p class="text-2xl font-bold text-yellow-600">{{ $neutralCount }}</p>
+                            <p class="text-xs text-gray-500">{{ $percentageNeutral }}%</p>
+                        </div>
+                        <div class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center">
+                            <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <div>
                             <p class="text-sm text-gray-600">Mood Negatif</p>
                             <p class="text-2xl font-bold text-red-600">{{ $negativeCount }}</p>
                             <p class="text-xs text-gray-500">{{ $percentageNegative }}%</p>
@@ -222,7 +237,9 @@
                     pointBackgroundColor: function(context) {
                         const value = context.parsed.y;
                         if (value === null) return 'rgb(156, 163, 175)'; // gray for pending
-                        return value === 0 ? 'rgb(34, 197, 94)' : 'rgb(239, 68, 68)'; // green for positive, red for negative
+                        if (value === 0) return 'rgb(34, 197, 94)'; // green for positive
+                        if (value === 0.5) return 'rgb(234, 179, 8)'; // yellow for neutral
+                        return 'rgb(239, 68, 68)'; // red for negative
                     },
                     pointBorderColor: '#fff',
                     pointBorderWidth: 2,
@@ -241,7 +258,9 @@
                             label: function(context) {
                                 const value = context.parsed.y;
                                 if (value === null) return 'Pending Analysis';
-                                return value === 0 ? 'Mood: Positif (Sehat)' : 'Mood: Negatif (Butuh Perhatian)';
+                                if (value === 0) return 'Mood: Positif (Sehat)';
+                                if (value === 0.5) return 'Mood: Netral (Stabil)';
+                                return 'Mood: Negatif (Butuh Perhatian)';
                             }
                         }
                     }
@@ -251,9 +270,12 @@
                         beginAtZero: true,
                         max: 1,
                         ticks: {
-                            stepSize: 1,
+                            stepSize: 0.5,
                             callback: function(value) {
-                                return value === 0 ? 'Positif' : 'Negatif';
+                                if (value === 0) return 'Positif';
+                                if (value === 0.5) return 'Netral';
+                                if (value === 1) return 'Negatif';
+                                return '';
                             }
                         },
                         grid: {

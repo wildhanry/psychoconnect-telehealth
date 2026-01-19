@@ -34,7 +34,14 @@ class MonitorController extends Controller
 
         foreach ($journalsForChart as $journal) {
             $chartLabels[] = $journal->created_at->format('M d');
-            $chartData[] = $journal->mood_score ?? null; // null if pending
+            // Convert mood_score: 0→0 (Positif), 2→0.5 (Netral), 1→1 (Negatif)
+            if ($journal->mood_score === null) {
+                $chartData[] = null;
+            } elseif ($journal->mood_score === 2) {
+                $chartData[] = 0.5; // Netral di tengah
+            } else {
+                $chartData[] = (float) $journal->mood_score;
+            }
         }
 
         // Calculate statistics
@@ -42,6 +49,7 @@ class MonitorController extends Controller
         $journalsWithMood = $journals->whereNotNull('mood_score');
         $negativeCount = $journalsWithMood->where('mood_score', 1)->count();
         $positiveCount = $journalsWithMood->where('mood_score', 0)->count();
+        $neutralCount = $journalsWithMood->where('mood_score', 2)->count();
         
         $percentageNegative = $journalsWithMood->count() > 0 
             ? round(($negativeCount / $journalsWithMood->count()) * 100, 1)
@@ -49,6 +57,10 @@ class MonitorController extends Controller
 
         $percentagePositive = $journalsWithMood->count() > 0 
             ? round(($positiveCount / $journalsWithMood->count()) * 100, 1)
+            : 0;
+
+        $percentageNeutral = $journalsWithMood->count() > 0 
+            ? round(($neutralCount / $journalsWithMood->count()) * 100, 1)
             : 0;
 
         return view('psikolog.monitor', compact(
@@ -59,8 +71,10 @@ class MonitorController extends Controller
             'totalJournals',
             'negativeCount',
             'positiveCount',
+            'neutralCount',
             'percentageNegative',
-            'percentagePositive'
+            'percentagePositive',
+            'percentageNeutral'
         ));
     }
 }
