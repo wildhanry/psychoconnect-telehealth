@@ -50,7 +50,7 @@
                 <!-- Statistics Cards -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
                     <div
-                        class="bg-gradient-to-br from-yellow-400 to-orange-500 text-white p-4 sm:p-6 rounded-xl sm:rounded-2xl shadow-lg">
+                        class="bg-yellow-500 text-white p-4 sm:p-6 rounded-lg shadow-lg">
                         <div class="flex justify-between items-center">
                             <div>
                                 <div class="text-xs sm:text-sm font-semibold">Menunggu Konfirmasi</div>
@@ -64,7 +64,7 @@
                         </div>
                     </div>
                     <div
-                        class="bg-gradient-to-br from-green-400 to-teal-500 text-white p-4 sm:p-6 rounded-xl sm:rounded-2xl shadow-lg">
+                        class="bg-green-500 text-white p-4 sm:p-6 rounded-lg shadow-lg">
                         <div class="flex justify-between items-center">
                             <div>
                                 <div class="text-xs sm:text-sm font-semibold">Terkonfirmasi</div>
@@ -77,7 +77,7 @@
                             </svg>
                         </div>
                     </div>
-                    <div class="bg-gradient-to-br from-blue-400 to-indigo-500 text-white p-4 sm:p-6 rounded-xl sm:rounded-2xl shadow-lg">
+                    <div class="bg-blue-500 text-white p-4 sm:p-6 rounded-lg shadow-lg">
                         <div class="flex justify-between items-center">
                             <div>
                                 <div class="text-xs sm:text-sm font-semibold">Sesi Selesai</div>
@@ -151,7 +151,14 @@
                                                     </p>
                                                 @endif
                                             </div>
-                                            <div class="flex gap-2 mt-4 sm:mt-0 self-end sm:self-center">
+                                            <div class="flex gap-2 mt-4 sm:mt-0 self-end sm:self-center flex-wrap">
+                                                <a href="{{ route('psikolog.monitor', $appointment->pasien->id) }}"
+                                                   class="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-3 rounded-lg text-sm transition-colors inline-flex items-center">
+                                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                                                    </svg>
+                                                    Monitor
+                                                </a>
                                                 @if ($appointment->status === 'pending')
                                                     <form method="POST"
                                                         action="{{ route('psikolog.appointments.approve', $appointment->id) }}">

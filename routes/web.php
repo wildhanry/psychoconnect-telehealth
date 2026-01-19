@@ -7,8 +7,10 @@ use App\Http\Controllers\Psikolog\PsikologDashboardController;
 use App\Http\Controllers\Psikolog\ProfileController as PsikologProfileController;
 use App\Http\Controllers\Psikolog\JadwalController;
 use App\Http\Controllers\Psikolog\AppointmentController as PsikologAppointmentController;
+use App\Http\Controllers\Psikolog\MonitorController;
 use App\Http\Controllers\Pasien\PsychologistController;
 use App\Http\Controllers\Pasien\BookingController;
+use App\Http\Controllers\Pasien\JournalController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -68,6 +70,9 @@ Route::middleware(['auth', 'role:psikolog'])->prefix('psikolog')->name('psikolog
     Route::post('/appointments/{id}/reject', [PsikologAppointmentController::class, 'reject'])->name('appointments.reject');
     Route::post('/appointments/{id}/complete', [PsikologAppointmentController::class, 'complete'])->name('appointments.complete');
     Route::post('/appointments/{id}/meeting-link', [PsikologAppointmentController::class, 'updateMeetingLink'])->name('appointments.meeting-link');
+    
+    // Patient Monitoring Dashboard
+    Route::get('/monitor/{userId}', [MonitorController::class, 'monitor'])->name('monitor');
 });
 
 // ============================================
@@ -85,6 +90,14 @@ Route::middleware(['auth', 'role:pasien'])->prefix('pasien')->name('pasien.')->g
     // My Appointments
     Route::get('/appointments', [BookingController::class, 'myAppointments'])->name('appointments.index');
     Route::post('/appointments/{id}/cancel', [BookingController::class, 'cancel'])->name('appointments.cancel');
+    
+    // Daily Journal & Mood Monitor
+    Route::get('/journals', [JournalController::class, 'index'])->name('journals.index');
+    Route::post('/journals', [JournalController::class, 'store'])->name('journals.store');
+    Route::get('/journals/{id}/edit', [JournalController::class, 'edit'])->name('journals.edit');
+    Route::put('/journals/{id}', [JournalController::class, 'update'])->name('journals.update');
+    Route::delete('/journals/{id}', [JournalController::class, 'destroy'])->name('journals.destroy');
+    Route::post('/journals/{id}/reanalyze', [JournalController::class, 'reanalyze'])->name('journals.reanalyze');
 });
 
 // ============================================

@@ -1,201 +1,195 @@
-# 🚀 Quick Start Guide - PsychoConnect
+# Quick Start Guide
 
-## Langkah Cepat untuk Memulai
+## Initial Setup
 
-### 1. Pastikan Server Berjalan
-
+Start the development server:
 ```bash
 php artisan serve
 ```
 
-Buka browser: `http://127.0.0.1:8000`
+Access the application at `http://127.0.0.1:8000`
 
-### 2. Testing Flow Lengkap
+## Testing Workflows
 
-#### A. Login sebagai ADMIN
+### Administrator Workflow
 
+**Login Credentials**
 ```
 Email: admin@psychoconnect.com
 Password: password
 ```
 
-**Yang bisa dilakukan:**
+**Available Actions**
+1. Access dashboard at `/admin/dashboard`
+2. Review system statistics
+3. Verify pending psychologist registrations
+4. Navigate to user management sections
+5. Monitor system-wide appointments
 
--   ✅ Lihat statistik dashboard
--   ✅ Verifikasi psikolog yang belum terverifikasi (Amanda Brown)
--   ✅ Klik tombol "Verifikasi" untuk approve
+**Psychologist Verification Process**
+1. Navigate to "Psikolog Menunggu Verifikasi" section
+2. Review psychologist credentials (STR number, specialization)
+3. Click "Verifikasi" to approve registration
+4. Verified psychologists appear in patient directory
 
----
+### Psychologist Workflow
 
-#### B. Login sebagai PSIKOLOG
-
+**Login Credentials**
 ```
 Email: sarah@psychoconnect.com
 Password: password
 ```
 
-**Yang bisa dilakukan:**
+**Profile Configuration**
+1. Navigate to "Edit Profil"
+2. Update specialization, biography, STR number
+3. Save changes
 
-1. **Edit Profil**
+**Schedule Management**
+1. Access "Kelola Jadwal"
+2. Add new schedule entries with day, start time, end time
+3. Toggle availability status
+4. Edit or delete existing schedules
 
-    - Klik "Edit Profil"
-    - Update spesialisasi, bio, nomor STR
-    - Save
+**Appointment Management**
+1. Review pending appointments on dashboard
+2. Click "Terima" to confirm appointment
+3. Enter meeting link (Google Meet, Zoom, etc.)
+4. Click "Selesai" to mark session as completed
 
-2. **Kelola Jadwal**
+**Patient Monitoring**
+1. Click "Monitor" on confirmed appointments
+2. View patient mood trends over 30 days
+3. Review sentiment statistics and alerts
+4. Access individual journal entries
 
-    - Klik "Kelola Jadwal"
-    - Tambah jadwal baru (pilih hari, jam mulai, jam selesai)
-    - Edit/Hapus jadwal existing
+### Patient Workflow
 
-3. **Kelola Janji Temu**
-    - Lihat janji temu pending di dashboard
-    - Klik "Terima" untuk approve
-    - Klik "Tolak" untuk reject
-    - Update meeting link (Google Meet, Zoom, dll)
-    - Tandai sebagai "Selesai" setelah konseling
-
----
-
-#### C. Login sebagai PASIEN
-
+**Login Credentials**
 ```
 Email: john@example.com
 Password: password
 ```
 
-**Yang bisa dilakukan:**
+**Psychologist Discovery**
+1. Click "Cari Psikolog" from dashboard
+2. Browse verified psychologist directory
+3. View detailed profiles and specializations
 
-1. **Browse Psikolog**
+**Appointment Booking**
+1. Select psychologist and click "Buat Janji"
+2. Choose appointment date
+3. Select time slot from available schedule
+4. Add optional notes
+5. Submit booking request
 
-    - Klik "Cari Psikolog" di dashboard
-    - Lihat daftar psikolog terverifikasi
-    - Klik "Lihat Detail" untuk info lengkap
+**Appointment Tracking**
+1. Navigate to "Janji Temu Saya"
+2. View appointment status (Pending, Confirmed, Completed, Cancelled)
+3. Access meeting link for confirmed appointments
+4. Cancel pending appointments if needed
 
-2. **Buat Janji Temu**
+**Daily Journal**
+1. Access "Jurnal Harian" from dashboard
+2. Write journal entry in Indonesian
+3. Submit for automatic AI mood analysis
+4. Review mood label, score, and confidence percentage
+5. Edit, delete, or re-analyze previous entries
+6. View mood trend visualization
 
-    - Klik "Buat Janji" pada psikolog pilihan
-    - Pilih tanggal dan waktu (sesuai jadwal psikolog)
-    - Isi catatan (opsional)
-    - Submit
+## Complete Testing Scenarios
 
-3. **Kelola Janji Temu**
-    - Klik "Janji Temu Saya"
-    - Lihat status: Pending, Confirmed, Completed, Cancelled
-    - Join meeting jika sudah confirmed (klik link)
-    - Batalkan janji jika masih pending
+### Scenario 1: Full Appointment Lifecycle
 
----
+1. **Patient** (john@example.com): Browse psychologists
+2. **Patient**: Select dr. Sarah Williams
+3. **Patient**: Book appointment for Monday at 10:00 with notes
+4. **Patient**: Logout
 
-## 🎯 Skenario Testing Lengkap
+5. **Psychologist** (sarah@psychoconnect.com): Login
+6. **Psychologist**: Review pending appointment on dashboard
+7. **Psychologist**: Click "Terima" to approve
+8. **Psychologist**: Update meeting link: `https://meet.google.com/abc-defg-hij`
+9. **Psychologist**: Logout
 
-### Skenario 1: Pasien Booking Psikolog
+10. **Patient** (john@example.com): Login
+11. **Patient**: Navigate to "Janji Temu Saya"
+12. **Patient**: Verify status shows "Confirmed"
+13. **Patient**: Click "Join Meeting" to access session
 
-1. Login sebagai **Pasien (john@example.com)**
-2. Browse psikolog → Pilih "dr. Sarah Williams"
-3. Buat janji: Pilih Monday, jam 10:00, tambah catatan
-4. Logout
+### Scenario 2: Psychologist Registration and Verification
 
-5. Login sebagai **Psikolog (sarah@psychoconnect.com)**
-6. Lihat janji temu pending di dashboard
-7. Klik "Terima" untuk approve
-8. Update meeting link: `https://meet.google.com/abc-defg-hij`
-9. Logout
+1. **New User**: Access `/register/psychologist`
+2. **New User**: Complete registration form with credentials
+3. **New User**: Submit and receive verification pending message
 
-10. Login sebagai **Pasien (john@example.com)**
-11. Lihat "Janji Temu Saya"
-12. Status: Confirmed ✅
-13. Klik "Join Meeting" untuk buka link
+4. **Admin** (admin@psychoconnect.com): Login
+5. **Admin**: Review "Psikolog Menunggu Verifikasi"
+6. **Admin**: Verify credentials
+7. **Admin**: Click "Verifikasi" to approve
 
-### Skenario 2: Admin Verifikasi Psikolog Baru
+8. **New Psychologist**: Login with registered credentials
+9. **New Psychologist**: Access psychologist dashboard
+10. **New Psychologist**: Configure schedule and accept appointments
 
-1. Login sebagai **Admin**
-2. Lihat "Psikolog Menunggu Verifikasi"
-3. Ada: dr. Amanda Brown (belum terverifikasi)
-4. Klik "Verifikasi"
-5. Logout
+### Scenario 3: Mood Journal and Monitoring
 
-6. Login sebagai **Pasien**
-7. Browse psikolog
-8. Sekarang bisa lihat dr. Amanda Brown dalam list
+1. **Patient** (john@example.com): Access "Jurnal Harian"
+2. **Patient**: Write journal entry describing current mood
+3. **Patient**: Submit for AI analysis
+4. **Patient**: Review mood analysis results
+5. **Patient**: Repeat for multiple days to build trend data
 
-### Skenario 3: Psikolog Kelola Jadwal
+6. **Psychologist** (sarah@psychoconnect.com): Login
+7. **Psychologist**: Navigate to confirmed appointment
+8. **Psychologist**: Click "Monitor" button
+9. **Psychologist**: Review patient mood trend chart
+10. **Psychologist**: Analyze sentiment statistics and journal entries
 
-1. Login sebagai **Psikolog (michael@psychoconnect.com)**
-2. Klik "Kelola Jadwal"
-3. Tambah jadwal baru:
-    - Hari: Thursday
-    - Jam: 09:00 - 12:00
-    - Status: Tersedia ✅
-4. Save
-5. Pasien sekarang bisa booking di hari Thursday
+## Role-Based Access Summary
 
----
+| Role | Dashboard URL | Primary Functions |
+|------|---------------|------------------|
+| Admin | `/admin/dashboard` | User management, psychologist verification |
+| Psychologist | `/psikolog/dashboard` | Profile, schedules, appointments, monitoring |
+| Patient | `/dashboard` | Browse, booking, appointments, journaling |
 
-## 📊 Struktur Role & Akses
+## Common Issues and Solutions
 
-| Role     | Dashboard URL         | Fitur Utama                      |
-| -------- | --------------------- | -------------------------------- |
-| Admin    | `/admin/dashboard`    | Verifikasi psikolog, statistik   |
-| Psikolog | `/psikolog/dashboard` | Profil, jadwal, approve booking  |
-| Pasien   | `/dashboard`          | Browse, booking, my appointments |
+**Issue: Psychologist not appearing in directory**
+- Verify psychologist account has `is_verified = true`
+- Check admin verification completion
 
----
+**Issue: Cannot book appointment at selected time**
+- Confirm psychologist has schedule for selected day
+- Verify time falls within schedule start and end time
+- Ensure schedule status is "Tersedia" (Available)
 
-## 🔍 Troubleshooting
+**Issue: Mood analysis shows "Pending Analysis"**
+- AI service may be temporarily unavailable
+- Use "Analisis Ulang" button to retry
+- Check network connectivity
 
-### Error: "Psikolog tidak tersedia pada waktu yang dipilih"
+**Issue: Unable to login after registration**
+- Psychologists require admin verification before login
+- Check email/password correctness
+- Verify account exists in database
 
--   ✅ Pastikan psikolog punya jadwal untuk hari tersebut
--   ✅ Pastikan waktu booking dalam range jadwal (start_time - end_time)
--   ✅ Pastikan jadwal status: "Tersedia"
+## Development Commands
 
-### Psikolog tidak muncul di list
-
--   ✅ Pastikan psikolog sudah terverifikasi oleh admin
--   ✅ Check: `is_verified = true` di database
-
-### Tidak bisa login
-
--   ✅ Pastikan sudah run `php artisan db:seed`
--   ✅ Default password semua user: `password`
-
----
-
-## 🎨 Tips UI/UX
-
-1. **Color Coding Status:**
-
-    - 🟡 Yellow = Pending
-    - 🟢 Green = Confirmed/Available
-    - 🔵 Blue = Completed
-    - 🔴 Red = Cancelled/Unavailable
-
-2. **Navigation:**
-
-    - Gunakan breadcrumb & back button
-    - Dashboard sebagai home base
-    - Quick actions di setiap halaman
-
-3. **Forms:**
-    - Semua required fields ada tanda \*
-    - Validation real-time
-    - Error messages jelas
-
----
-
-## 📝 Notes untuk Development
-
-### Jika ingin reset database:
-
+**Reset database with fresh seed data:**
 ```bash
 php artisan migrate:fresh --seed
 ```
 
-### Jika update CSS/JS:
-
+**Rebuild frontend assets:**
 ```bash
 npm run build
+```
+
+**Run in development mode with hot reload:**
+```bash
+npm run dev
 ```
 
 ### Jika ada error migrations:

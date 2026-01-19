@@ -13,7 +13,7 @@
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
                 <!-- Card 1: Cari Psikolog -->
                 <a href="{{ route('pasien.psychologists.index') }}"
                     class="flex flex-col justify-between transform hover:scale-105 transition-transform duration-300 ease-in-out bg-white rounded-2xl shadow-lg overflow-hidden group">
@@ -55,7 +55,28 @@
                     </div>
                 </a>
 
-                <!-- Card 3: Profil Saya (Contoh) -->
+                <!-- Card 3: Jurnal Harian -->
+                <a href="{{ route('pasien.journals.index') }}"
+                    class="flex flex-col justify-between transform hover:scale-105 transition-transform duration-300 ease-in-out bg-white rounded-2xl shadow-lg overflow-hidden group">
+                    <div class="p-6">
+                        <div
+                            class="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mb-4 group-hover:bg-indigo-500 transition-colors duration-300">
+                            <svg class="w-8 h-8 text-indigo-500 group-hover:text-white" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
+                                </path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Jurnal Harian</h3>
+                        <p class="text-gray-600">Tulis jurnal dan pantau mood Anda dengan AI.</p>
+                    </div>
+                    <div class="bg-indigo-500 text-white text-center py-2 font-semibold">
+                        Tulis Jurnal
+                    </div>
+                </a>
+
+                <!-- Card 4: Profil Saya -->
                 <a href="{{ route('profile.edit') }}"
                     class="flex flex-col justify-between transform hover:scale-105 transition-transform duration-300 ease-in-out bg-white rounded-2xl shadow-lg overflow-hidden group">
                     <div class="p-6">

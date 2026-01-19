@@ -1,249 +1,183 @@
-# PsychoConnect - TeleHealth Platform untuk Konseling Psikologi
+# PsychoConnect - Feature Documentation
 
-Platform TeleHealth yang menghubungkan Pasien dengan Psikolog untuk konsultasi online.
+## Role-Based System Architecture
 
-## 🚀 Fitur Utama
+PsychoConnect implements a three-tier role-based access control system with distinct functionalities for each user type.
 
-### Admin
+## Administrator Features
 
--   ✅ Dashboard dengan statistik
--   ✅ Verifikasi psikolog (approve/reject)
--   ✅ Manajemen user
+### Dashboard
+- System-wide statistics overview
+- Pending psychologist verification queue
+- User activity monitoring
 
-### Psikolog
+### User Management
+- Complete user directory with role filtering
+- User deletion with cascading data cleanup
+- Account status monitoring
 
--   ✅ Dashboard dengan daftar janji temu
--   ✅ Setup profil (spesialisasi, bio, nomor STR)
--   ✅ Kelola jadwal praktik (CRUD)
--   ✅ Approve/Reject janji temu
--   ✅ Update link meeting (Google Meet, Zoom, dll)
--   ✅ Tandai janji temu sebagai selesai
+### Psychologist Verification
+- Credential review workflow
+- STR (Registration Certificate) number validation
+- Verification status management (approve/revoke)
 
-### Pasien
+### Appointment Oversight
+- Comprehensive appointment listing across all users
+- Status-based filtering (Pending, Confirmed, Completed, Cancelled)
+- System-wide appointment analytics
 
--   ✅ Browse psikolog terverifikasi
--   ✅ Lihat detail psikolog dan jadwal
--   ✅ Buat janji temu
--   ✅ Lihat status janji temu
--   ✅ Batalkan janji temu
--   ✅ Join meeting via link
+## Psychologist Features
 
-## 🛠️ Tech Stack
-
--   **Framework:** Laravel 11
--   **Database:** MySQL/SQLite
--   **Auth:** Laravel Breeze (Blade & Tailwind)
--   **Frontend:** Blade Templates + Tailwind CSS
-
-## 📋 Prerequisites
-
--   PHP >= 8.2
--   Composer
--   Node.js & NPM
--   MySQL/SQLite
-
-## ⚙️ Instalasi
-
-1. **Clone repository**
-
-```bash
-git clone <repository-url>
-cd telehealth-psikolog
-```
-
-2. **Install dependencies**
-
-```bash
-composer install
-npm install
-```
-
-3. **Setup environment**
-
-```bash
-cp .env.example .env
-php artisan key:generate
-```
-
-4. **Konfigurasi database di `.env`**
-
-```env
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=psychoconnect
-DB_USERNAME=root
-DB_PASSWORD=
-```
-
-5. **Jalankan migrations**
-
-```bash
-php artisan migrate
-```
-
-6. **Seed sample data (opsional)**
-
-```bash
-php artisan db:seed
-```
-
-7. **Build assets**
-
-```bash
-npm run build
-# atau untuk development:
-npm run dev
-```
-
-8. **Jalankan server**
-
-```bash
-php artisan serve
-```
-
-Aplikasi akan berjalan di: `http://127.0.0.1:8000`
-
-## 👥 Sample User Credentials
-
-Setelah menjalankan `php artisan db:seed`, gunakan kredensial berikut untuk login:
-
-### Admin
-
--   Email: `admin@psychoconnect.com`
--   Password: `password`
-
-### Psikolog (Terverifikasi)
-
--   Email: `sarah@psychoconnect.com` - dr. Sarah Williams (Psikologi Klinis)
--   Email: `michael@psychoconnect.com` - dr. Michael Chen (Psikologi Anak & Remaja)
--   Password: `password`
-
-### Psikolog (Belum Terverifikasi)
-
--   Email: `amanda@psychoconnect.com` - dr. Amanda Brown
--   Password: `password`
-
-### Pasien
-
--   Email: `john@example.com` - John Doe
--   Email: `jane@example.com` - Jane Smith
--   Password: `password`
-
-## 🗄️ Database Structure
-
-### Tables
-
-1. **users**
-
-    - Kolom utama: id, name, email, password, role (enum: admin, psikolog, pasien)
-
-2. **psychologist_profiles**
-
-    - Kolom utama: user_id, specialization, bio, str_number, is_verified
-
-3. **jadwals (schedules)**
-
-    - Kolom utama: user_id, day_of_week, start_time, end_time, is_available
-
-4. **janji_temus (appointments)**
-    - Kolom utama: pasien_id, psikolog_id, schedule_date, schedule_time, status, meeting_link, notes
-
-## 🔐 Role-Based Access Control
-
-Sistem menggunakan middleware `CheckRole` untuk mengatur akses:
-
--   **Admin routes:** `/admin/*` - Hanya admin
--   **Psikolog routes:** `/psikolog/*` - Hanya psikolog
--   **Pasien routes:** `/pasien/*` - Hanya pasien
-
-Redirect otomatis setelah login:
-
--   Admin → `/admin/dashboard`
--   Psikolog → `/psikolog/dashboard`
--   Pasien → `/dashboard`
-
-## 📝 Validation Rules
-
-### Booking Appointment
-
--   ✅ Pasien tidak bisa booking diri sendiri
--   ✅ Tanggal harus di masa depan
--   ✅ Waktu harus sesuai dengan jadwal psikolog
--   ✅ Validasi hari dan jam tersedia
+### Professional Profile
+- Specialization declaration
+- Biography and professional background
+- STR number registration for verification
+- Profile editing capabilities
 
 ### Schedule Management
+- Weekly availability configuration
+- Time slot definition (day, start time, end time)
+- Schedule modification and deletion
+- Availability status toggle
 
--   ✅ Jam selesai harus lebih besar dari jam mulai
--   ✅ Format waktu HH:MM
+### Appointment Management
+- Incoming appointment request review
+- Approval and rejection workflow
+- Meeting link integration (Google Meet, Zoom, etc.)
+- Session completion marking
 
-### Psychologist Profile
+### Patient Monitoring
+- Individual patient mood trend visualization
+- 30-day journal history analysis
+- Sentiment distribution statistics
+- Negative mood threshold alerts
 
--   ✅ Nomor STR harus unique
--   ✅ Spesialisasi wajib diisi
+## Patient Features
 
-## 🎨 UI Components
+### Psychologist Discovery
+- Browse verified psychologist directory
+- Detailed psychologist profile viewing
+- Specialization-based filtering
 
-Menggunakan Tailwind CSS dengan komponen dari Laravel Breeze:
+### Appointment System
+- Schedule-based appointment booking
+- Date and time slot selection
+- Appointment status tracking
+- Meeting link access for confirmed sessions
+- Appointment cancellation (pending status only)
 
--   Forms dengan validation feedback
--   Tables responsif
--   Cards untuk list items
--   Status badges dengan warna
--   Alert messages (success, error)
+### AI-Powered Mood Journal
+- Daily journaling interface with Indonesian language support
+- Automatic sentiment analysis using external AI API
+- Mood categorization (Positive/Negative) with confidence scoring
+- Journal entry management (create, edit, delete, re-analyze)
+- Historical mood trend visualization
+- Professional consultation disclaimer and recommendations
 
-## 🔄 Workflow
+## Technical Implementation
 
-### Flow Booking Janji Temu:
+### Database Structure
 
-1. **Pasien** browse daftar psikolog terverifikasi
-2. **Pasien** pilih psikolog dan lihat jadwal tersedia
+**users**
+- Primary authentication table
+- Fields: id, name, email, password, role (admin/psikolog/pasien)
+
+**psychologist_profiles**
+- Psychologist credential storage
+- Fields: user_id, specialization, bio, str_number, is_verified
+
+**jadwals**
+- Weekly schedule templates
+- Fields: user_id, day_of_week, start_time, end_time, is_available
+
+**janji_temus**
+- Appointment records
+- Fields: pasien_id, psikolog_id, schedule_date, schedule_time, status, meeting_link, notes
+
+**journals**
+- Patient daily journals with AI analysis
+- Fields: user_id, content, mood_label, mood_score, confidence_score, created_at
+
+### Authentication Flow
+
+**Admin Access**
+- Routes: `/admin/*`
+- Middleware: `auth, role:admin`
+- Redirect: `/admin/dashboard`
+
+**Psychologist Access**
+- Routes: `/psikolog/*`
+- Middleware: `auth, role:psikolog`
+- Redirect: `/psikolog/dashboard`
+- Requires: `is_verified = true`
+
+**Patient Access**
+- Routes: `/pasien/*`, `/dashboard`
+- Middleware: `auth, role:pasien`
+- Redirect: `/dashboard`
+
+### Validation Rules
+
+**Appointment Booking**
+- Date must be in the future
+- Time must match psychologist's available schedule
+- Day of week must have active schedule entry
+- Prevents self-booking by psychologists
+
+**Schedule Creation**
+- End time must be later than start time
+- Time format: HH:MM (24-hour)
+- Day of week validation
+
+**Psychologist Profile**
+- STR number must be unique
+- Specialization is required
+- Biography minimum length enforced
+
+### AI Integration
+
+**Mood Analysis Service**
+- Endpoint: `https://wildhanry.pythonanywhere.com/predict`
+- Method: POST with JSON payload
+- Input: `{"text": "journal_content"}`
+- Output: `{"prediction_label": "...", "prediction_score": 0/1, "confidence": "75.5%"}`
+- Timeout: 10 seconds
+- Fallback: "Pending Analysis" on API failure
+
+## UI/UX Standards
+
+### Responsive Design
+- Mobile-first approach with Tailwind CSS
+- Breakpoints: sm (640px), md (768px), lg (1024px)
+- Adaptive grid layouts and component sizing
+
+### Color Coding
+- Status badges: Yellow (Pending), Green (Confirmed/Available), Blue (Completed), Red (Cancelled/Unavailable)
+- Role themes: Purple (Admin), Blue/Yellow/Green (Psychologist), Indigo/Green (Patient)
+
+### Component Library
+- Laravel Breeze authentication scaffolding
+- Tailwind CSS utility classes
+- Chart.js for data visualization
+- Responsive tables with horizontal scrolling
+- Form validation with real-time feedback
+
+## Security Measures
+
+- Role-based middleware protection
+- CSRF token validation on all forms
+- Password hashing with bcrypt
+- SQL injection prevention via Eloquent ORM
+- XSS protection through Blade escaping
+- Cascading deletion for data integrity
+- Admin self-deletion prevention
 3. **Pasien** isi form booking (tanggal, waktu, catatan)
 4. Status: `pending` - menunggu konfirmasi
 5. **Psikolog** approve/reject di dashboard
 6. Jika approved: Status → `confirmed`
 7. **Psikolog** tambahkan meeting link
 8. **Pasien** bisa join meeting via link
-9. **Psikolog** tandai sebagai `completed` setelah selesai
 
-## 🧪 Testing
-
-Untuk testing manual:
-
-1. Login sebagai **Admin** → Verifikasi psikolog
-2. Login sebagai **Psikolog** → Setup profil & jadwal
-3. Login sebagai **Pasien** → Browse & booking
-4. Login sebagai **Psikolog** → Approve booking
-5. Login sebagai **Pasien** → Lihat status & join meeting
-
-## 📂 Project Structure
-
-```
-app/
-├── Http/
-│   ├── Controllers/
-│   │   ├── Admin/
-│   │   │   └── AdminController.php
-│   │   ├── Psikolog/
-│   │   │   ├── PsikologDashboardController.php
-│   │   │   ├── ProfileController.php
-│   │   │   ├── JadwalController.php
-│   │   │   └── AppointmentController.php
-│   │   └── Pasien/
-│   │       ├── PsychologistController.php
-│   │       └── BookingController.php
-│   ├── Middleware/
-│   │   └── CheckRole.php
-│   └── Requests/
-│       ├── StoreAppointmentRequest.php
-│       ├── StorePsychologistProfileRequest.php
-│       └── StoreJadwalRequest.php
-├── Models/
-│   ├── User.php
-│   ├── PsychologistProfile.php
-│   ├── Jadwal.php
-│   └── JanjiTemu.php
-```
 
 ## 🚧 Future Enhancements
 

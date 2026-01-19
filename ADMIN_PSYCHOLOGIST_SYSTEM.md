@@ -1,150 +1,170 @@
-# Admin & Psychologist Registration System
+# Administrative System Documentation
 
-## Fitur Admin
+## Administrator Capabilities
 
-Admin sekarang memiliki akses penuh untuk mengelola sistem:
+### Dashboard Overview
+- **Access Route**: `/admin/dashboard`
+- **Features**:
+  - Quick navigation cards to management sections
+  - System statistics: Total psychologists, verified count, patient count, appointment count
+  - Pending psychologist verification queue
 
-### 1. Dashboard Admin
-- **URL**: `/admin/dashboard`
-- **Fitur**:
-  - Quick actions ke semua management pages
-  - Statistics cards (Total Psikolog, Terverifikasi, Pasien, Janji Temu)
-  - List psikolog yang menunggu verifikasi
+### User Management
+- **Access Route**: `/admin/users`
+- **Capabilities**:
+  - View complete user directory across all roles
+  - Filter by role with visual badge indicators
+  - View psychologist verification status
+  - Delete user accounts (restrictions apply)
+  - Cascading deletion removes associated data (profiles, schedules, appointments)
+  
+**Deletion Restrictions**:
+- Administrators cannot delete their own account
+- Administrators cannot delete other administrator accounts
+- System enforces these rules at controller level
 
-### 2. Kelola Semua User
-- **URL**: `/admin/users`
-- **Fitur**:
-  - Lihat semua user (Admin, Psikolog, Pasien)
-  - Filter by role dengan badge warna
-  - Status verifikasi untuk psikolog
-  - Hapus user (kecuali admin dan diri sendiri)
-  - Menghapus user akan otomatis menghapus data terkait (profil, jadwal, dll)
+### Psychologist Management
+- **Access Route**: `/admin/psychologists`
+- **Capabilities**:
+  - View all registered psychologists
+  - Review credentials (specialization, STR number)
+  - Grant verification status to new registrations
+  - Revoke verification status
+  - Delete psychologist accounts
 
-### 3. Kelola Psikolog
-- **URL**: `/admin/psychologists`
-- **Fitur**:
-  - Lihat semua psikolog terdaftar
-  - Verifikasi psikolog baru
-  - Cabut verifikasi psikolog
-  - Lihat spesialisasi dan nomor STR
-  - Hapus psikolog
+### Patient Management
+- **Access Route**: `/admin/patients`
+- **Capabilities**:
+  - View all registered patients
+  - Monitor registration dates
+  - Delete patient accounts
 
-### 4. Kelola Pasien
-- **URL**: `/admin/patients`
-- **Fitur**:
-  - Lihat semua pasien terdaftar
-  - Lihat tanggal registrasi
-  - Hapus pasien
-
-### 5. Kelola Janji Temu
-- **URL**: `/admin/appointments`
-- **Fitur**:
-  - Lihat semua janji temu
+### Appointment Monitoring
+- **Access Route**: `/admin/appointments`
+- **Capabilities**:
+  - View system-wide appointment records
   - Filter by status (Pending, Confirmed, Completed, Cancelled)
-  - Lihat detail pasien dan psikolog
-  - Monitor semua appointment di sistem
+  - Monitor patient-psychologist interactions
+  - Track appointment completion rates
 
----
+## Psychologist Registration System
 
-## Sistem Registrasi Psikolog
+### Registration Process
 
-### Cara Psikolog Mendaftar:
+**Step 1: Access Registration**
+- Public route: `/register/psychologist`
+- Available from welcome page via "Daftar Sebagai Psikolog" link
+- No authentication required
 
-1. **Akses Halaman Registrasi**
-   - Dari welcome page, klik "Daftar Sebagai Psikolog" di bawah hero section
-   - Atau langsung ke: `/register/psychologist`
+**Step 2: Complete Registration Form**
 
-2. **Isi Form Registrasi**
-   Form mencakup:
-   - **Data Akun**:
-     - Nama Lengkap
-     - Email
-     - Password
-   
-   - **Data Profil Psikolog** (Wajib):
-     - Spesialisasi (contoh: Klinis Dewasa, Anak & Remaja)
-     - Nomor STR (Surat Tanda Registrasi) - untuk verifikasi
-     - Bio/Deskripsi Diri - pengalaman dan pendekatan konseling
-   
-   - **Data Tambahan** (Opsional):
-     - Pendidikan
-     - Pengalaman (dalam tahun)
+Required account information:
+- Full name
+- Email address (unique validation)
+- Password (minimum 8 characters)
 
-3. **Submit & Menunggu Verifikasi**
-   - Setelah submit, akun dibuat dengan `is_verified = false`
-   - Psikolog akan diarahkan ke login dengan pesan "Akun menunggu verifikasi admin"
-   - Psikolog BELUM BISA login sampai diverifikasi
+Required professional information:
+- Specialization (e.g., Clinical Psychology, Child Psychology)
+- STR Number (Registration Certificate - unique validation)
+- Professional biography
 
-4. **Verifikasi Admin**
-   - Admin login dan masuk dashboard
-   - Akan melihat list "Psikolog Menunggu Verifikasi"
-   - Admin memeriksa kredensial (STR number, pendidikan, dll)
-   - Admin klik "Verifikasi" untuk mengaktifkan akun
+Optional information:
+- Educational background
+- Years of experience
 
-5. **Psikolog Dapat Login**
-   - Setelah diverifikasi, psikolog bisa login
-   - Akses dashboard psikolog
-   - Dapat mengatur jadwal praktik
-   - Dapat menerima janji temu
+**Step 3: Account Creation**
+- System creates user account with `role = 'psikolog'`
+- System creates psychologist profile with `is_verified = false`
+- User redirected to login with pending verification message
+- Account is inactive until administrator approval
 
----
+**Step 4: Administrator Verification**
+- Administrator reviews pending psychologist in dashboard
+- Administrator verifies credentials (STR number, education)
+- Administrator clicks "Verifikasi" to approve account
+- System updates `is_verified = true`
 
-## Alur Lengkap:
+**Step 5: Account Activation**
+- Psychologist can now login with credentials
+- Full access to psychologist dashboard and features
+- Can create schedules and accept appointments
+- Appears in patient psychologist directory
+
+### Workflow Diagram
 
 ```
-1. Psikolog → Register via /register/psychologist
-2. Sistem → Buat User (role: psikolog) + PsychologistProfile (is_verified: false)
-3. Admin → Login, lihat pending verification di dashboard
-4. Admin → Verify psikolog
-5. Psikolog → Sekarang bisa login dan berfungsi penuh
+User Registration → Account Created (Unverified) → Admin Review → 
+Admin Approval → Account Activated → Full System Access
 ```
 
----
+### Technical Implementation
 
-## Routes Baru:
-
-```php
-// Public - Registration
-GET  /register/psychologist           → Form registrasi psikolog
-POST /register/psychologist           → Proses registrasi
-
-// Admin Routes
-GET  /admin/users                     → List semua user
-GET  /admin/psychologists             → List semua psikolog
-GET  /admin/patients                  → List semua pasien
-GET  /admin/appointments              → List semua janji temu
-POST /admin/psychologists/{id}/verify → Verifikasi psikolog
-POST /admin/psychologists/{id}/unverify → Cabut verifikasi
-DELETE /admin/users/{id}              → Hapus user
+**Routes**
+```
+GET  /register/psychologist - Display registration form
+POST /register/psychologist - Process registration submission
 ```
 
----
+**Middleware**
+- `guest` middleware ensures only unauthenticated users can register
+- `auth, role:admin` protects verification endpoints
 
-## Database:
+**Validation Rules**
+- Email: Required, valid format, unique in users table
+- Password: Required, minimum 8 characters, confirmed
+- STR Number: Required, unique in psychologist_profiles table
+- Specialization: Required, string
+- Biography: Required, minimum length enforced
 
-Tidak ada perubahan migration diperlukan. Sistem menggunakan kolom yang sudah ada:
-- `psychologist_profiles.is_verified` → untuk status verifikasi
-- `psychologist_profiles.str_number` → untuk validasi kredensial
-- `users.role` → untuk menentukan akses
+### Security Considerations
 
----
+- Password hashing with bcrypt algorithm
+- CSRF token validation on form submission
+- SQL injection prevention via Eloquent ORM
+- XSS protection through Blade template escaping
+- Unique constraint on STR numbers prevents duplicate credentials
+- Middleware authorization on all protected routes
 
-## Keamanan:
+### Database Schema
 
-✅ Middleware `role:admin` melindungi semua admin routes
-✅ Admin tidak bisa menghapus diri sendiri
-✅ Admin tidak bisa menghapus admin lain
-✅ Psikolog belum diverifikasi tidak bisa login
-✅ Password di-hash dengan bcrypt
-✅ CSRF protection aktif
+No migration changes required. Uses existing structure:
+- `users.role` - Determines user type and access level
+- `psychologist_profiles.is_verified` - Controls account activation
+- `psychologist_profiles.str_number` - Professional credential validation
 
----
+### Administrative Routes
 
-## UI/UX:
+```
+GET    /admin/dashboard              - Administrator dashboard
+GET    /admin/users                  - User management interface
+GET    /admin/psychologists          - Psychologist management
+GET    /admin/patients               - Patient management
+GET    /admin/appointments           - Appointment monitoring
+POST   /admin/psychologists/{id}/verify   - Grant verification
+POST   /admin/psychologists/{id}/unverify - Revoke verification
+DELETE /admin/users/{id}             - Delete user account
+```
 
-- ✅ Responsive design untuk mobile, tablet, desktop
-- ✅ Quick action cards dengan warna berbeda per role
-- ✅ Status badges dengan color coding
-- ✅ Confirmation dialog sebelum delete
-- ✅ Success messages dengan styling
-- ✅ Table dengan overflow-x-auto untuk mobile
+All administrative routes protected by `auth, role:admin` middleware.
+
+### UI/UX Implementation
+
+**Responsive Design**
+- Mobile-first approach with Tailwind CSS
+- Grid layouts adapt to screen size
+- Tables implement horizontal scrolling on mobile devices
+
+**Visual Indicators**
+- Role badges with color coding (Admin: Purple, Psychologist: Blue, Patient: Green)
+- Verification status badges (Verified: Green, Pending: Yellow)
+- Status-based styling for appointments
+
+**User Feedback**
+- Confirmation dialogs before destructive actions
+- Success messages after operations
+- Clear error messages with actionable guidance
+
+**Accessibility**
+- Quick action cards for common tasks
+- Consistent navigation patterns
+- Clear labeling and form instructions
