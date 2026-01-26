@@ -41,7 +41,7 @@ class JournalController extends Controller
 
         try {
             // Call the external Python AI Service
-            $aiServiceUrl = env('https://www.pythonanywhere.com/user/wildhanry/webapps/#tab_id_wildhanry_pythonanywhere_com');
+            $aiServiceUrl = env('AI_SERVICE_URL');
             
             if (!$aiServiceUrl) {
                 throw new \Exception('AI_SERVICE_URL not configured in .env file');
